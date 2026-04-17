@@ -39,3 +39,5 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+
+src/main/java/com/trymad/app
