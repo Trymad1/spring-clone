@@ -50,7 +50,7 @@ public class JavaConfiguration implements Configuration {
 	}
 
 	private BeanDefinition<?> createBeanDefinition(Class<?> clazz) {
-		final String id = clazz.getName();
+		final String id = clazz.getSimpleName().toLowerCase();
 		final boolean isPrimary = clazz.isAnnotationPresent(Primary.class);
 		final Constructor<?>[] constructors = clazz.getDeclaredConstructors();
 		

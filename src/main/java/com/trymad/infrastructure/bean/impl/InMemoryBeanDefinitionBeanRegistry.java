@@ -75,5 +75,16 @@ public class InMemoryBeanDefinitionBeanRegistry implements BeanDefinitionRegistr
 			registerTypeHierarchy(iface, beanDefinition, visited);
 		}
 	}
+
+	@Override
+	public boolean contains(String id) {
+		return idRepo.containsKey(id);
+	}
+
+	@Override
+	public void clear() {
+		idRepo.clear();
+		typeRepo.clear();
+	}
 	
 }

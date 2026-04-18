@@ -10,4 +10,8 @@ public interface BeanDefinitionRegistry {
 
 	BeanDefinition<?> getBeanDefinitionById(String id);
 
+	boolean contains(String id);
+
+	void clear();
+
 }
