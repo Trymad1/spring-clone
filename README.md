@@ -30,21 +30,36 @@ The default bootstrap path is implemented in [Application.java](d:/code/spring-c
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    A[Application.run(packageName)] --> B[ReflectionsAdapterClassMetadataScanner]
-    B --> C[JavaConfiguration]
-    C --> D[BeanDefinition set]
-    D --> E[AnnotationConfigApplicationContext.refresh]
-    E --> F[BeanDefinitionRegistry]
-    A --> G[BeanFactoryImpl]
-    G --> E
-    E --> H[getBean by id or type]
-    H --> I[BeanFactoryImpl.create]
-    I --> J[Constructor resolution]
-    J --> K[ApplicationContext dependency lookup]
-    I --> L[Bean instance]
-    L --> M[Singleton store]
+```text
+Application
+  |
+  v
+Scanner
+  |
+  v
+JavaConfiguration
+  |
+  v
+BeanDefinitions
+  |
+  v
+ApplicationContext
+  | \
+  |  \--> Registry
+  | \
+  |  \--> SingletonStore
+  |
+  v
+BeanLookup
+  |
+  v
+BeanFactory
+  |
+  v
+BeanInstance
+  |
+  v
+SingletonStore
 ```
 
 ## Core Pieces
