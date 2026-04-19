@@ -11,7 +11,9 @@ import com.trymad.bean.BeanFactory;
 import com.trymad.bean.impl.InMemoryBeanDefinitionBeanRegistry;
 import com.trymad.config.Configuration;
 import com.trymad.exception.BeanDefinitionOverrideException;
+import com.trymad.exception.NoSuchBeanDefinitionException;
 import com.trymad.exception.NoUniqueBeanDefinitionException;
+import com.trymad.exception.context.ContextNotInitializedException;
 
 public class AnnotationConfigApplicationContext implements ApplicationContext {
 
@@ -43,6 +45,9 @@ public class AnnotationConfigApplicationContext implements ApplicationContext {
 	@Override
 	public Object getBean(String id) {
 		final BeanDefinition<?> beanDefinition = registry.getBeanDefinitionById(id);
+		if(beanDefinition == null) {
+			throw new NoSuchBeanDefinitionException(id);
+		}
 		return this.getBean(beanDefinition);
 	}
 
@@ -71,12 +76,19 @@ public class AnnotationConfigApplicationContext implements ApplicationContext {
 			return singletoneStore.get(definition.id());
 		}
 
-		return factory.create(registry.getBeanDefinitionById(definition.id()));
+		if(factory == null) {
+			throw new ContextNotInitializedException("ApplicationContext is not initialized.", null);
+		}
+
+		final Object bean = factory.create(registry.getBeanDefinitionById(definition.id()));
+		singletoneStore.put(definition.id(), bean);
+		return bean;
 	}
 
 	@Override
 	public void refresh() {
 		registry.clear();
+		singletoneStore.clear();
 
 		final Set<BeanDefinition<?>> definitions = configuration.loadBeanDefinitions();
 		definitions.forEach(registry::registry);

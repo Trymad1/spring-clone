@@ -18,6 +18,7 @@ import com.trymad.bean.ConstructorArg;
 import com.trymad.config.Configuration;
 import com.trymad.exception.AmbiguousConstructorException;
 import com.trymad.exception.DuplicateBeanDefinitionException;
+import com.trymad.exception.NoSuchBeanConstructorException;
 import com.trymad.util.ClassMetadataScanner;
 
 // TODO add method bean config
@@ -70,6 +71,10 @@ public class JavaConfiguration implements Configuration {
 					throw new AmbiguousConstructorException(clazz);
 				}
 			}
+		}
+
+		if(constructor == null) {
+			throw new NoSuchBeanConstructorException(clazz);
 		}
 
 		final Parameter[] parameters = constructor.getParameters();
