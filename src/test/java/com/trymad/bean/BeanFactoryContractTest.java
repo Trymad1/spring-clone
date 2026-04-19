@@ -150,6 +150,8 @@ public abstract class BeanFactoryContractTest {
 	}
 
 	protected static final class Dependency {
+
+		@SuppressWarnings("unused")
 		private final String id;
 
 		public Dependency(String id) {
