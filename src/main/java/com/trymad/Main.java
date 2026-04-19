@@ -7,6 +7,6 @@ import com.trymad.context.ApplicationContext;
 
 public class Main {
     public static void main( String[] args ) throws IOException, URISyntaxException, ClassNotFoundException {
-        final ApplicationContext context = Application.run();
+
     }
 }
