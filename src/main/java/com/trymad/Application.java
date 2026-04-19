@@ -11,8 +11,8 @@ import com.trymad.util.impl.ReflectionsAdapterClassMetadataScanner;
 
 public class Application {
 
-	public static ApplicationContext run() {
-		final ClassMetadataScanner scanner = new ReflectionsAdapterClassMetadataScanner("com.trymad.test");
+	public static ApplicationContext run(String packageName) {
+		final ClassMetadataScanner scanner = new ReflectionsAdapterClassMetadataScanner(packageName);
 		final Configuration configuration = new JavaConfiguration(scanner);
 
 		final ApplicationContext context = new AnnotationConfigApplicationContext(configuration);
