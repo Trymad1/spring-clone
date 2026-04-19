@@ -40,4 +40,4 @@ logs/
 .DS_Store
 Thumbs.db
 
-src/main/java/com/trymad/app
+src/main/java/com/trymad/test
